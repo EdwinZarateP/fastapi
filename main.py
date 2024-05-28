@@ -6,10 +6,12 @@ from config.database import engine, Base
 from middlewares.error_handler import ErrorHandler
 from routers.movie import movie_router
 from routers.user import user_router
+from mangum import Mangum
 
 app = FastAPI()
 app.title = "Mi aplicacion con  FastAPI"
 app.version = "0.0.1"
+handler = Mangum(app)
 
 app.add_middleware(ErrorHandler)
 app.include_router(movie_router)
@@ -43,7 +45,7 @@ movies = [
 
 @app.get('/', tags=['home'])
 def message():
-    return HTMLResponse('<h1>Hello world</h1>')
+    return HTMLResponse('<h1>Hola mis perros</h1>')
 
 
 @app.post('/login', tags=['auth'])
